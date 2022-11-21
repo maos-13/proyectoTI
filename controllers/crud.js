@@ -1,0 +1,68 @@
+//Invocamos a la conexion de la DB
+const conexion = require('../database/db');
+
+//GUARDAR un REGISTRO
+exports.save = (req, res)=>{
+    const user = req.body.user;
+    const rol = req.body.rol;
+    conexion.query('INSERT INTO users SET ?',{user:user, rol:rol}, (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            //console.log(results);   
+            res.redirect('/');         
+        }
+    });
+    const NombreP = req.body.NombreP;
+    const Descripcion_P = req.body.Descripcion_P;
+    conexion.query('INSERT INTO proyectos SET ?',{NombreP:NombreP, Descripcion_P:Descripcion_P}, (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            //console.log(results);   
+            res.redirect('/');         
+        }
+});
+};
+
+//ACTUALIZAR un REGISTRO DE USUARIOS
+exports.update = (req, res)=>{
+    const id = req.body.id;
+    const user = req.body.user;
+    const rol = req.body.rol;
+    conexion.query('UPDATE users SET ? WHERE id = ?',[{user:user, rol:rol}, id], (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{           
+            res.redirect('/');         
+        }
+});
+//ACTUALIZAR un REGISTRO DE PROYECTOS
+exports.update = (req, res)=>{
+    const id = req.body.id;
+    const NombreP = req.body.NombreP;
+    const Descripcion_P = req.body.Descripcion_P;
+    conexion.query('UPDATE proyectos SET ? WHERE id = ?',[{NombreP:NombreP, Descripcion_P:Descripcion_P}, id], (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{           
+            res.redirect('/');         
+        }
+});
+};
+
+//ELIMINAR un REGISTRO
+/*
+exports.delete = (req, res)=>{
+    console.log(req.params.id)    ;
+    console.log('LLEGAMOS A ELIMINAR');
+    const id = req.body.id;
+    conexion.query('DELETE FROM users WHERE id = ?',[id], (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{           
+            res.redirect('/');         
+        }
+    }) 
+}*/
+};
